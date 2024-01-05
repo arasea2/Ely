@@ -18,7 +18,7 @@ let handler = async (m, { conn, text, args, usedPrefix, command }) => {
 			await conn.sendMsg(m.chat, { image: { url: anu.thumbnail.split("?")[0] }, caption: txt }, { quoted: m })
 		} catch (e) {
 			console.log(e)
-			m.reply('invalid url')
+			return m.reply('invalid url')
 		}
 	} else {
 		try {
@@ -34,11 +34,11 @@ let handler = async (m, { conn, text, args, usedPrefix, command }) => {
 			await conn.sendMsg(m.chat, { image: { url: anu.thumbnail.split("?")[0] }, caption: txt }, { quoted: m })
 		} catch (e) {
 			console.log(e)
-			m.reply(`Tidak ditemukan hasil.`)
+			return m.reply(`Tidak ditemukan hasil.`)
+
 		}
 	}
-}
-if (!url) {
+	if (!url) return
 	try {
 		let res = await youtubedl(url)
 		let data = res.audio[Object.keys(res.audio)[0]]
@@ -47,10 +47,9 @@ if (!url) {
 		await conn.sendMsg(m.chat, { audio: { url: site }, mimetype: 'audio/mpeg' }, { quoted: m })
 	} catch (e) {
 		console.log(e)
-		m.reply('Server Down')
+		m.reply(e)
 	}
 }
-
 
 handler.menudownload = ['ytplay <teks> / <url>']
 handler.tagsdownload = ['search']
