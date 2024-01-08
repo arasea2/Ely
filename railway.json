@@ -6,7 +6,8 @@
                   },
                     "deploy": {
                         "numReplicas": 1,
-                            "startCommand": "node --abort-on-uncaught-exception . --server",",
+                            "startCommand": "node --abort-on-uncaught-exception . --server",
+                     ,
                                 "sleepApplication": false,
                                     "restartPolicyType": "ON_FAILURE",
                                         "restartPolicyMaxRetries": 10
