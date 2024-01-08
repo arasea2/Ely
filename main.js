@@ -136,6 +136,8 @@ _quickTest()
 	.then(() => (conn?.logger?.info || console.log)('Quick Test Done'))
 	.catch(console.error)
 
+console.log((os.totalmem - os.freemem) / (1023 / 1024))
+
 const appName = 'index.js'
 
 setInterval(() => {
