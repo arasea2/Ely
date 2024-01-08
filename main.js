@@ -138,22 +138,67 @@ _quickTest()
 
 console.log((os.totalmem - os.freemem) / (1023 / 1024))
 
-const appName = 'index.js'
+// const appName = 'index.js'
+
+//setInterval(() => {
+//	const totalMemory = os.totalmem()
+//	const freeMemory = os.freemem()
+//	const usedMemoryInMB = (totalMemory - freeMemory) / (1024 * 1024)
+
+//	if (usedMemoryInMB <= 200) {
+//		console.log(`Restarting ${appName} due to low system memory usage`)
+//		pm2.connect(() => {
+//			pm2.restart(appName, (restartErr) => {
+//				pm2.disconnect()
+//				if (restartErr) {
+//					console.error(restartErr)
+//				}
+//			})
+//		})
+//	}
+//}, 100)
+
+const appName = 'index.js';
+const memoryThreshold = 200; // Batas memori dalam megabyte
+
+pm2.connect(() => {
+  pm2.launchBus((err, bus) => {
+    bus.on('process:event', (packet) => {
+      if (packet.process.name === appName && packet.event === 'exit') {
+        console.error(`${appName} exited unexpectedly. Restarting...`);
+        restartApp();
+      }
+    });
+  });
+
+  pm2.start({
+    script: './index.js',
+    name: appName,
+    autorestart: false, // Menonaktifkan restart otomatis PM2
+  }, (startErr) => {
+    if (startErr) {
+      console.error(startErr);
+      pm2.disconnect();
+    }
+  });
+});
+
+function restartApp() {
+  pm2.restart(appName, (restartErr) => {
+    if (restartErr) {
+      console.error(restartErr);
+    }
+  });
+}
 
 setInterval(() => {
-	const totalMemory = os.totalmem()
-	const freeMemory = os.freemem()
-	const usedMemoryInMB = (totalMemory - freeMemory) / (1024 * 1024)
-
-	if (usedMemoryInMB <= 200) {
-		console.log(`Restarting ${appName} due to low system memory usage`)
-		pm2.connect(() => {
-			pm2.restart(appName, (restartErr) => {
-				pm2.disconnect()
-				if (restartErr) {
-					console.error(restartErr)
-				}
-			})
-		})
-	}
-}, 100)
+  pm2.describe(appName, (descErr, description) => {
+    if (!descErr && description[0]) {
+      const memoryUsage = description[0].monit.memory / (1024 * 1024); // Memori dalam megabyte
+      if (memoryUsage < memoryThreshold) {
+        console.error(`Memory usage below ${memoryThreshold} MB. Restarting...`);
+        restartApp();
+      }
+    }
+  });
+}, 30000); // Memeriksa setiap 30 detik
