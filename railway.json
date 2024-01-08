@@ -6,7 +6,7 @@
                   },
                     "deploy": {
                         "numReplicas": 1,
-                            "startCommand": "pm2 start index.js --watch --ignore-watch='node_modules' --kill-timeout=3000 && pm2 save",
+                            "startCommand": "node --abort-on-uncaught-exception . --server",",
                                 "sleepApplication": false,
                                     "restartPolicyType": "ON_FAILURE",
                                         "restartPolicyMaxRetries": 10
