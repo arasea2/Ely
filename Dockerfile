@@ -19,4 +19,4 @@ COPY . .
 
 EXPOSE 5000
 
-CMD ["pm2-runtime", "index.js", "--exp-backoff-restart-delay=100"]
+CMD ["pm2","start" , "index.js"]
