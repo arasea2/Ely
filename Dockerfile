@@ -16,4 +16,4 @@ COPY . .
 
 EXPOSE 5000
 
-CMD ["node", "--max_old_space_size=350", "index.js", "--server"]
+CMD ["pm2", "start", "index.js", "--kill-timeout=3000"]
