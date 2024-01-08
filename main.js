@@ -159,7 +159,7 @@ console.log((os.totalmem - os.freemem) / (1023 / 1024))
 //}, 100)
 
 const appName = 'index.js';
-const memoryThreshold = 200; // Batas memori dalam megabyte
+const memoryThreshold = 100; // Batas memori dalam megabyte
 
 pm2.connect(() => {
   pm2.launchBus((err, bus) => {
@@ -201,4 +201,4 @@ setInterval(() => {
       }
     }
   });
-}, 30000); // Memeriksa setiap 30 detik
+}, 60000); // Memeriksa setiap 30 detik
