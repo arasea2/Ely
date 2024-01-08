@@ -20,6 +20,7 @@ import {
 	pluginFolder,
 	pluginFilter
 } from './lib/plugins.js'
+import node from ''
 
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
@@ -133,3 +134,6 @@ async function _quickTest() {
 _quickTest()
 	.then(() => (conn?.logger?.info || console.log)('Quick Test Done'))
 	.catch(console.error)
+
+
+

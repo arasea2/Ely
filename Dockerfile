@@ -16,4 +16,4 @@ COPY . .
 
 EXPOSE 5000
 
-CMD ["node", ". --db 'mongodb+srv://arase321:arase33512@arase.qcqq5y3.mongodb.net/?retryWrites=true&w=majority'"]
+CMD ["node", "--max_old_space_size=350", "index.js", "--server"]

@@ -8,7 +8,12 @@ let handler = async (m, { conn, usedPrefix, args, command, text }) => {
     let cap = `_Nih Kak Videonya >,<_`
     
     for ( let i of anu.result ) {
-      await conn.sendMsg(m.chat, { video: { url: i }, caption: cap }, { quoted: m })
+      if (i.includes('.mp4')) {
+                await conn.sendMsg(m.chat, { video: { url: i } }, { quoted: m })
+                      } else if (i.includes('.jpg') || i.includes('.png') || i.includes('.jpeg') || i.includes('.webp')) {
+                              await conn.sendMsg(m.chat, { image: { url: i } }, { quoted: m })
+                                    }
+ 
     }
   } catch (e) {
     m.reply(`Terjadi Kesalahan, Tidak Dapat Mengambil Data Dari Url/Link Yang Kamu Masukan`)
