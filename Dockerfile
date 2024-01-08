@@ -12,8 +12,11 @@ COPY package.json .
 
 RUN npm install && npm install qrcode-terminal && npm i -g pm2
 
+ENV PM2_PUBLIC_KEY zblsx5829u87ho7
+ENV PM2_SECRET_KEY 5nbvre8sixzkr19
+
 COPY . .
 
 EXPOSE 5000
 
-CMD ["pm2", "start", "index.js", "--kill-timeout=3000"]
+CMD ["pm2-runtime", "index.js", "--kill-timeout=3000"]
