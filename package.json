@@ -10,7 +10,7 @@
 		"plugins": "plugins"
 	},
 	"scripts": {
-		"start": "node . --db 'mongodb+srv://arase321:arase33512@arase.qcqq5y3.mongodb.net/?retryWrites=true&w=majority'",
+		"start": "pm2 start index.js --watch --ignore-watch='node_modules' --kill-timeout=3000",
 		"build": "npm install",
 		"test3": "node index.js",
 		"test": "node test.js",
