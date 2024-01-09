@@ -19,7 +19,7 @@ COPY . .
 
 EXPOSE 5000
 
-CMD ["pm2", "start", "monitor.js"]
+RUN pm2 start monitor.js && pm2 save
 CMD ["pm2-runtime" , "index.js"]
 
 
