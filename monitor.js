@@ -19,9 +19,4 @@ setInterval(() => {
 			})
 		})
 	}
-}, 30000)
-
-
-setInterval(() => {
-	console.log((os.totalmem - os.freemem) / (1024 * 1024))
-}, 5000)
+}, 60000)
