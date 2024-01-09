@@ -11,9 +11,9 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
 		let url = await data.download()
 		if (data.fileSize > 400000) return m.reply(`Filesize: ${data.fileSizeH}\nTidak dapat mengirim, maksimal file 400 MB`)
 		let txt = `*${anu.title}*\n\n`
-		+ `⭔ Watch : ${args[0]}\n`
-		+ `⭔ Resolution : ${data.quality}\n`
-		+ `⭔ Size : ${data.fileSizeH}`
+			+ `⭔ Watch : ${args[0]}\n`
+			+ `⭔ Resolution : ${data.quality}\n`
+			+ `⭔ Size : ${data.fileSizeH}`
 		await conn.sendFile(m.chat, url, `${anu.title}.mp4`, txt, m)
 	} catch (e) {
 		console.log(e)
@@ -21,7 +21,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
 			let res = await ytdl.getURLVideoID(args[0])
 			let anu = await ytdl.getInfo(res)
 			let data, det = anu.videoDetails
-			for (let x of ['360','480','240']) {
+			for (let x of ['360', '480', '240']) {
 				if (!data) data = anu.formats.find(v => v.mimeType.includes('video') && v.audioBitrate !== null && (v.qualityLabel || '').includes(x))
 			}
 			if (!data) throw Error()
@@ -30,9 +30,9 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
 			let buffl = Buffer.byteLength(buffer)
 			if (size > 400000000) return m.reply(`Filesize: ${niceBytes(buffl)}\nTidak dapat mengirim, maksimal file 400 MB`)
 			let txt = `*${det.title}*\n\n`
-			+ `⭔ Watch : ${args[0]}\n`
-			+ `⭔ Resolution : ${data.width} x ${data.height}\n`
-			+ `⭔ Size : ${niceBytes(buffl)}`
+				+ `⭔ Watch : ${args[0]}\n`
+				+ `⭔ Resolution : ${data.width} x ${data.height}\n`
+				+ `⭔ Size : ${niceBytes(buffl)}`
 			await conn.sendFile(m.chat, buffer, `${det.title}.mp4`, txt, m)
 		} catch (e) {
 			console.log(e)
@@ -43,13 +43,18 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
 				if (isNaN(vs)) vs = 1
 				if (vs > 400 && /mb|gb/i.test(size)) return m.reply(`Filesize: ${size}\nTidak dapat mengirim, maksimal file 400 MB`)
 				let txt = `*${anu.info.title}*\n\n`
-				+ `⭔ Watch : ${args[0]}\n`
-				+ `⭔ Resolution : ${anu.urldl_video.quality}\n`
-				+ `⭔ Size : ${size}`
+					+ `⭔ Watch : ${args[0]}\n`
+					+ `⭔ Resolution : ${anu.urldl_video.quality}\n`
+					+ `⭔ Size : ${size}`
 				await conn.sendFile(m.chat, anu.urldl_video.link, `${anu.info.title}.mp4`, txt, m)
 			} catch (e) {
 				console.log(e)
-				throw 'invalid url / internal server error.'
+				try {
+					let anu = await (await fetch(`https://api.lolhuman.xyz/api/ytvideo2?apikey=${api.lol}&url=${url}`)).json()
+					await conn.sendFile(m.chat, anu.result.link, `${anu.result.title}.mp4`, txt, m)
+				} catch (e) {
+					m.reply('invalid url / internal server error.')
+				}
 			}
 		}
 	}
