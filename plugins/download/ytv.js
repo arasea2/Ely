@@ -3,7 +3,7 @@ import { niceBytes } from '../../lib/func.js'
 import { youtubedl } from '@bochilteam/scraper-sosmed'
 
 let handler = async (m, { conn, args, usedPrefix, command }) => {
-	if (!(args[0] || '').match(new RegExp(/(?:https?:\/\/)?(?:youtu\.be\/|(?:www\.|m\.)?youtube\.com\/(?:watch|v|embed|shorts)(?:\.php)?(?:\?.*v=|\/))([a-zA-Z0-9\_-]+)/, 'gi'))) return m.reply(`Invalid Youtube URL.`)
+	if(!args[0]) throw 'Masukkan Link'
 	try {
 		let anu = await (await fetch(`https://api.lolhuman.xyz/api/ytvideo2?apikey=${api.lol}&url=${args[0]}`)).json()
 		await conn.sendFile(m.chat, anu.result.link, `${anu.result.title}.mp4`, txt, m)
