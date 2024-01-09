@@ -9,7 +9,7 @@ let handler = async (m, { conn, text, usedPrefix, command, participants }) => {
 	} else await conn.reply(m.chat, text, fkontak, { mentions: participants.map(a => a.id) })
 }
 
-handler.menuowner = ['hidetag'].map(v => v + ' <teks>')
+handler.menuowner = ['ohidetag'].map(v => v + ' <teks>')
 handler.tagsowner = ['ownerr']
 handler.command = /^(ohidetag)$/i
 
