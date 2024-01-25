@@ -9,7 +9,7 @@ RUN apt-get update && \
 
 COPY package.json .
 
-RUN npm install && npm install qrcode-terminal && npm i -g pm2
+RUN npm install --force && npm i -g pm2
 
 ENV PM2_PUBLIC_KEY zblsx5829u87ho7
 ENV PM2_SECRET_KEY 5nbvre8sixzkr19
