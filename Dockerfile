@@ -9,15 +9,12 @@ RUN apt-get update && \
 
 COPY package.json .
 
-RUN npm install --force && npm i -g pm2
-
-ENV PM2_PUBLIC_KEY zblsx5829u87ho7
-ENV PM2_SECRET_KEY 5nbvre8sixzkr19
+RUN npm install --force
 
 COPY . .
 
 EXPOSE 5000
 
-CMD ["pm2-runtime" , "index.js"]
+CMD ["node" , "index.js"]
 
 
