@@ -9,12 +9,12 @@ RUN apt-get update && \
 
 COPY package.json .
 
-RUN npm install --force && npm install -g forever
+RUN npm install --force && npm install -g pm2
 
 COPY . .
 
 EXPOSE 5000
 
-CMD ["forever" , "start" , "index.js"]
+CMD ["pm2-runtime", "index.js"]
 
 
