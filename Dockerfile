@@ -9,12 +9,12 @@ RUN apt-get update && \
 
 COPY package.json .
 
-RUN npm install --force
+RUN npm install --force && npm install -g forever
 
 COPY . .
 
 EXPOSE 5000
 
-CMD ["node" , "index.js"]
+CMD ["forever" , "start" , "index.js"]
 
 
