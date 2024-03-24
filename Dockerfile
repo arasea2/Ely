@@ -13,6 +13,9 @@ RUN npm install --force && npm install -g pm2
 
 COPY . .
 
+ENV PM2_PUBLIC_KEY zblsx5829u87ho7
+ENV PM2_SECRET_KEY 5nbvre8sixzkr19
+
 EXPOSE 5000
 
-CMD ["pm2-runtime", "index.js"]
+CMD ["sh", "-c", "pm2-runtime index.js --cron '0 17 * * *'"]
