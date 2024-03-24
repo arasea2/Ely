@@ -18,4 +18,4 @@ ENV PM2_SECRET_KEY 5nbvre8sixzkr19
 
 EXPOSE 5000
 
-CMD ["pm2-runtime", "index.js", "--cron-restart", "0 17 * * *"]
+CMD ["pm2-runtime", "index.js"]
