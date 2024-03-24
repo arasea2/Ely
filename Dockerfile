@@ -17,4 +17,4 @@ ENV NODE_OPTIONS="--max-old-space-size=512"
 
 EXPOSE 5000
 
-CMD ["pm2-runtime", "index.js", "--cron-reload", "0 17 * *"]
+CMD ["pm2-runtime", "index.js", "--cron-restart", "0 17 * *"]
